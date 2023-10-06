@@ -1,18 +1,25 @@
-fx_version "adamant"
-game 'gta5'
+fx_version "bodacious"
+game "gta5"
+lua54 "yes"
 
-ui_page 'web/build/index.html'
+ui_page 'web-side/build/index.html'
 
 client_scripts {
-	"client.lua"
-} 
+	"@vrp/config/Native.lua",
+	"@vrp/config/Item.lua",
+	"@vrp/lib/Utils.lua",
+	"config.lua",
+	"client-side/*"
+}
 
 server_scripts {
-	"server.lua"
+	"@vrp/config/Item.lua",
+	"@vrp/lib/Utils.lua",
+	"config.lua",
+	"server-side/*"
 }
 
 files {
-	'web/build/index.html',
-	'web/build/**/*',
+	'web-side/build/index.html',
+	'web-side/build/**/*',
 }
-                            

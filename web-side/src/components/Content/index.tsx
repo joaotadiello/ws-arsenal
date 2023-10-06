@@ -31,7 +31,10 @@ const Content = () => {
     const dispatch = useDispatch()
     const {weapons} = useSelector(useGlobal) 
 
-    useNuiEvent('SET_WEAPON_LIST', (data: any) => dispatch(setWeaponsList(data)))
+    useNuiEvent('SET_WEAPON_LIST', (data: any) => {
+        console.log('SET_WEAPON_LIST', JSON.stringify(data))
+        dispatch(setWeaponsList(data))
+    })
 
     return (
         <Container style={{

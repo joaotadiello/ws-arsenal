@@ -23,7 +23,7 @@ const Container = styled.div<{image:string}>`
         & > span {
             color: #FFF;
             text-align: center;
-            font-family: SF Pro Display;
+            font-family: 'SF Pro Display';
             font-size: 1.5em;
             font-style: normal;
             font-weight: 600;

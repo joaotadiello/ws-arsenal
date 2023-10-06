@@ -4,6 +4,7 @@ import { useGlobal } from "../../store/ReducerGlobal";
 import IMAGE_TESTE from "../../assets/weapon-test.png"
 import { formatToCurrency } from "../../utils/misc";
 import { useEffect, useState } from "react";
+import { fetchNui } from "../../utils/fetchNui";
 
 
 const WeaponsSelected = () => {
@@ -11,7 +12,7 @@ const WeaponsSelected = () => {
     const { selectedWeapon } = useSelector(useGlobal)
 
     function handleTakeWeapon() {
-
+        fetchNui('take:weapon',selectedWeapon)
     }
 
     useEffect(() => {

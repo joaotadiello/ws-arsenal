@@ -28,7 +28,6 @@ const Navegation = () => {
 
     useEffect(() => {
         const keyHandler = (e: KeyboardEvent) => {
-            console.log(e.code);
             if (["KeyE", "KeyQ"].includes(e.code)) {
                 if (e.code === 'KeyQ') {
                     const index = categorys.indexOf(categorySelected);

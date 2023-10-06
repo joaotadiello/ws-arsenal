@@ -36,7 +36,7 @@ export default createGlobalStyle`
         width: 100vw;
         height: 100vh;
         color: #fff;
-        background-image: url(${BG_1});
+        /* background-image: url(${BG_1}); */
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: center center;
@@ -51,11 +51,13 @@ export default createGlobalStyle`
     }
 
     .nui {
-        width:100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         display: flex;
         justify-content:center;
         align-items:center;
+        background: radial-gradient(60.78% 60.78% at 50% 50%, rgba(16, 94, 99, 0.80) 0%, rgba(1, 15, 16, 0.80) 100%);
+        /* backdrop-filter: blur(16px); */
     }
 
     @media screen and (min-width: 3072px) {
