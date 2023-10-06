@@ -20,7 +20,7 @@ const Container = styled.div`
 
         & > span {
             color: rgba(255, 255, 255, 0.25);
-            font-family: SF Pro Display;
+            font-family: 'SF Pro Display';
             font-size: 1.5em;
             font-style: normal;
             font-weight: 500;

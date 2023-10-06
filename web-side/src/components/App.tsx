@@ -34,6 +34,7 @@ const App = () => {
         <div className="nui" style={{
             display: visible ? "flex" : "none"
         }}>
+            <div className="fx-bg"/>
             <Container style={{
                 opacity: visible ? 1 : 0,
             }}>
