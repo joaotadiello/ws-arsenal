@@ -11,7 +11,7 @@ debugData([
     {
         action: 'SET_WEAPON_LIST',
         data: [
-            { name: "Assault Rifle AKM1",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:5,rateOfFire:3,accuracy:4,range:3}},
+            { name: "Assault Rifle AKM1",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:3,rateOfFire:3,accuracy:4,range:3}},
             { name: "Assault Rifle AKM2",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:2,rateOfFire:3,accuracy:4,range:3}},
             { name: "Assault Rifle AKM3",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:5,rateOfFire:1,accuracy:4,range:4}},
             { name: "Assault Rifle AKM4",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:2,rateOfFire:3,accuracy:1,range:3}},

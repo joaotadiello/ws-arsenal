@@ -41,15 +41,15 @@ const Container = styled.div`
             grid-template-columns: repeat(5,2.0625em);
             grid-template-rows: 0.8125em;
             column-gap: 0.375em;
-
             & > .progress {
+                transition: all .35s;
                 width: 100%;
                 height: 100%;
-                background: rgba(255, 255, 255, 0.15);
+                /* background: rgba(255, 255, 255, 0.15);
 
                 &-active {
                     background: #FFF205;
-                }
+                } */
             }
         }
     }

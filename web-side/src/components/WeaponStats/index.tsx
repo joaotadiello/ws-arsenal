@@ -1,9 +1,13 @@
 import { useSelector } from "react-redux";
 import { useGlobal } from "../../store/ReducerGlobal";
 import Container from "./styled";
+import { useEffect, useState } from "react";
 
 const WeaponStats = () => {
+    const [loading, setLoading] = useState<boolean>(false)
     const { selectedWeapon } = useSelector(useGlobal)
+
+    useEffect(() => setLoading(true), [selectedWeapon])
 
     return (
         <Container>
@@ -18,29 +22,33 @@ const WeaponStats = () => {
             <div className="card">
                 <small>Dano</small>
                 <section>
-                    {selectedWeapon.stats && Array.from({ length: selectedWeapon.stats && selectedWeapon.stats.damage }).map((_, index) => <div key={index} className="progress progress-active" />)}
-                    {selectedWeapon.stats && Array.from({ length: 5 - selectedWeapon.stats.damage }).map((_, index) => <div key={index} className="progress" />)}
+                    {selectedWeapon.stats && Array.from({ length: 5 }).map((_, index) => <div key={index} className="progress" style={{
+                        backgroundColor: selectedWeapon.stats && selectedWeapon.stats.damage > index && loading ? "#FFF205" : "rgba(255, 255, 255, 0.15)"
+                    }} />)}
                 </section>
             </div>
             <div className="card">
                 <small>Cadência de tiro</small>
                 <section>
-                    {selectedWeapon.stats && Array.from({ length: selectedWeapon.stats && selectedWeapon.stats.rateOfFire }).map((_, index) => <div  key={index} className="progress progress-active" />)}
-                    {selectedWeapon.stats && Array.from({ length: 5 - selectedWeapon.stats.rateOfFire }).map((_, index) => <div key={index} className="progress" />)}
+                    {selectedWeapon.stats && Array.from({ length: 5 }).map((_, index) => <div key={index} className="progress" style={{
+                        backgroundColor: selectedWeapon.stats && selectedWeapon.stats.rateOfFire > index && loading ? "#FFF205" : "rgba(255, 255, 255, 0.15)"
+                    }} />)}
                 </section>
             </div>
             <div className="card">
                 <small>Precisão</small>
                 <section>
-                    {selectedWeapon.stats && Array.from({ length: selectedWeapon.stats.accuracy }).map((_, index) => <div key={index} className="progress progress-active" />)}
-                    {selectedWeapon.stats && Array.from({ length: 5 - selectedWeapon.stats.accuracy }).map((_, index) => <div key={index} className="progress" />)}
+                    {selectedWeapon.stats && Array.from({ length: 5 }).map((_, index) => <div key={index} className="progress" style={{
+                        backgroundColor: selectedWeapon.stats && selectedWeapon.stats.accuracy > index && loading ? "#FFF205" : "rgba(255, 255, 255, 0.15)"
+                    }}/>)}
                 </section>
             </div>
             <div className="card">
                 <small>Alcance</small>
                 <section>
-                    {selectedWeapon.stats && Array.from({ length: selectedWeapon.stats && selectedWeapon.stats.range }).map((_, index) => <div key={index} className="progress progress-active" />)}
-                    {selectedWeapon.stats && Array.from({ length: 5 - selectedWeapon.stats.range }).map((_, index) => <div key={index} className="progress" />)}
+                    {selectedWeapon.stats && Array.from({ length: 5 }).map((_, index) => <div key={index} className="progress" style={{
+                        backgroundColor: selectedWeapon.stats && selectedWeapon.stats.range > index && loading ? "#FFF205" : "rgba(255, 255, 255, 0.15)"
+                    }}/>)}
                 </section>
             </div>
         </Container>
