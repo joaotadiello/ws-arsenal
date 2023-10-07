@@ -63,6 +63,11 @@ RegisterNUICallback('take:weapon',function(data,cb)
 	cb(true)
 end)
 
+RegisterNUICallback('armory:selectedCategory',function(category,cb)
+    print(category)
+    cb(true)
+end)
+
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSE
