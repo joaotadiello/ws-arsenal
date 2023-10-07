@@ -15,7 +15,7 @@ debugData([
 ])
 
 const Navegation = () => {
-
+    const [block, setBlock] = useState<boolean>(false);
     const { categorys, categorySelected } = useSelector(useGlobal);
 
     const dispatch = useDispatch()
@@ -28,23 +28,28 @@ const Navegation = () => {
 
     useEffect(() => {
         const keyHandler = (e: KeyboardEvent) => {
-            if (["KeyE", "KeyQ"].includes(e.code)) {
-                if (e.code === 'KeyQ') {
-                    const index = categorys.indexOf(categorySelected);
-                    if (index === 0) {
-                        dispatch(setCategorySelected(categorys[categorys.length - 1]))
-                    } else {
-                        dispatch(setCategorySelected(categorys[index - 1]))
+            if(!block){
+                if (["KeyE", "KeyQ"].includes(e.code)) {
+                    if (e.code === 'KeyQ') {
+                        const index = categorys.indexOf(categorySelected);
+                        if (index === 0) {
+                            dispatch(setCategorySelected(categorys[categorys.length - 1]))
+                        } else {
+                            dispatch(setCategorySelected(categorys[index - 1]))
+                        }
+                        setBlock(true);
+                        setTimeout(() => setBlock(false), 250)
+    
                     }
-
-                }
-                if (e.code === 'KeyE') {
-                    const index = categorys.indexOf(categorySelected);
-                    if (index === categorys.length - 1) {
-                        dispatch(setCategorySelected(categorys[0]))
-                    } else {
-                        dispatch(setCategorySelected(categorys[index + 1]))
-
+                    if (e.code === 'KeyE') {
+                        const index = categorys.indexOf(categorySelected);
+                        if (index === categorys.length - 1) {
+                            dispatch(setCategorySelected(categorys[0]))
+                        } else {
+                            dispatch(setCategorySelected(categorys[index + 1]))
+                        }
+                        setBlock(true);
+                        setTimeout(() => setBlock(false), 250)
                     }
                 }
             }
@@ -54,7 +59,7 @@ const Navegation = () => {
 
         return () => window.removeEventListener("keydown", keyHandler)
 
-    }, [categorySelected])
+    }, [block])
 
     return (
         <>

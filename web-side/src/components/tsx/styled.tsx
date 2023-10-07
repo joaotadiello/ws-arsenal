@@ -39,7 +39,7 @@ export const ContainerNavegation = styled.nav`
         gap: 0.5em;
 
         & > span {
-            font-family: 'SF Pro Text';
+            font-family: 'SF Pro Display';
             font-weight: 800;
             font-style: normal;
             font-size: 1em;
