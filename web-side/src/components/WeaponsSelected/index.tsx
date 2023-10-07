@@ -5,6 +5,7 @@ import IMAGE_TESTE from "../../assets/weapon-test.png"
 import { formatToCurrency } from "../../utils/misc";
 import { useEffect, useState } from "react";
 import { fetchNui } from "../../utils/fetchNui";
+import { Language } from "../../utils/lang";
 
 
 const WeaponsSelected = () => {
@@ -29,8 +30,8 @@ const WeaponsSelected = () => {
                 <span>{selectedWeapon.name}</span>
             </div>
             <section>
-                <span>Preço: <b>{formatToCurrency(selectedWeapon.price)}</b></span>
-                <button onClick={handleTakeWeapon}>Retirar</button>
+                <span>{Language().price}: <b>{formatToCurrency(selectedWeapon.price)}</b></span>
+                <button onClick={handleTakeWeapon}>{Language().takeWeapon}</button>
             </section>
         </Container>
     )

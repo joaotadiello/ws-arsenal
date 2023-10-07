@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useGlobal } from "../../store/ReducerGlobal";
 import Container from "./styled";
 import { useEffect, useState } from "react";
+import { Language } from "../../utils/lang";
 
 const WeaponStats = () => {
     const [loading, setLoading] = useState<boolean>(false)
@@ -14,7 +15,7 @@ const WeaponStats = () => {
     return (
         <Container>
             <div className="card">
-                <small>Tipo da arma</small>
+                <small>{Language().weaponType}</small>
                 <span>{selectedWeapon.stats && selectedWeapon.stats.type}</span>
             </div>
             <div className="card">
@@ -22,7 +23,7 @@ const WeaponStats = () => {
                 <span><b>{selectedWeapon.stats && selectedWeapon.stats.ammo}</b>un</span>
             </div>
             <div className="card">
-                <small>Dano</small>
+                <small>{Language().damage}</small>
                 <section>
                     {selectedWeapon.stats && Array.from({ length: 5 }).map((_, index) => <div key={index} className="progress" style={{
                         backgroundColor: selectedWeapon.stats && selectedWeapon.stats.damage > index && loading ? "#FFF205" : "rgba(255, 255, 255, 0.15)"
@@ -30,7 +31,7 @@ const WeaponStats = () => {
                 </section>
             </div>
             <div className="card">
-                <small>Cadência de tiro</small>
+                <small>{Language().fireRate}</small>
                 <section>
                     {selectedWeapon.stats && Array.from({ length: 5 }).map((_, index) => <div key={index} className="progress" style={{
                         backgroundColor: selectedWeapon.stats && selectedWeapon.stats.rateOfFire > index && loading ? "#FFF205" : "rgba(255, 255, 255, 0.15)"
@@ -38,7 +39,7 @@ const WeaponStats = () => {
                 </section>
             </div>
             <div className="card">
-                <small>Precisão</small>
+                <small>{Language().accuracy}</small>
                 <section>
                     {selectedWeapon.stats && Array.from({ length: 5 }).map((_, index) => <div key={index} className="progress" style={{
                         backgroundColor: selectedWeapon.stats && selectedWeapon.stats.accuracy > index && loading ? "#FFF205" : "rgba(255, 255, 255, 0.15)"
@@ -46,7 +47,7 @@ const WeaponStats = () => {
                 </section>
             </div>
             <div className="card">
-                <small>Alcance</small>
+                <small>{Language().range}</small>
                 <section>
                     {selectedWeapon.stats && Array.from({ length: 5 }).map((_, index) => <div key={index} className="progress" style={{
                         backgroundColor: selectedWeapon.stats && selectedWeapon.stats.range > index && loading ? "#FFF205" : "rgba(255, 255, 255, 0.15)"
