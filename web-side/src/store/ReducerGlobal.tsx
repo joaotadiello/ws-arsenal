@@ -2,11 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useLayoutEffect } from "react";
 import { useNuiEvent } from "../hooks/useNuiEvent";
 
-const INITIAL_STATE:any = {
+const INITIAL_STATE: any = {
     weapons: [],
-    selectedWeapon:{},
-    bank:123222,
-    categorys:[],
+    selectedWeapon: {},
+    bank: 123222,
+    categorys: [],
     categorySelected: "",
     title: 'WEAPON SHOP',
 };
@@ -32,8 +32,11 @@ const GlobalReducer = createSlice({
         },
         setTitle: (state, action) => {
             state.title = action.payload;
+        },
+        setBank: (state, action) => {
+            state.bank = action.payload;
         }
-    },  
+    },
 });
 
 export default GlobalReducer.reducer;
@@ -42,6 +45,7 @@ export const {
     setSeletedWeapon,
     setCategorys,
     setCategorySelected,
-    setTitle
+    setTitle,
+    setBank
 } = GlobalReducer.actions;
 export const useGlobal = (state: any) => state.global;

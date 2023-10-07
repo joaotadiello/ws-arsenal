@@ -8,14 +8,16 @@ import Header from "./tsx/Header";
 import Navegation from "./tsx/Navegation";
 import Content from "./Content";
 import { PiggyBank } from "lucide-react";
-import { useSelector } from "react-redux";
-import { useGlobal } from "../store/ReducerGlobal";
+import { useDispatch, useSelector } from "react-redux";
+import { setBank, useGlobal } from "../store/ReducerGlobal";
 
 const App = () => {
     const { bank } = useSelector(useGlobal)
     const [visible, setVisible] = useState<boolean>(isEnvBrowser() ? true : false);
+    const dispatch = useDispatch()
 
     useNuiEvent<boolean>('setVisible', setVisible)
+    useNuiEvent('SET_BANK', (bank: any) => dispatch(setBank(bank)))
 
     useEffect(() => {
         if (!visible) return;
