@@ -38,11 +38,12 @@ CreateThread(function()
 				if distance <= 2.0 and IsControlJustPressed(0,38) then 
 					if vSERVER.HasPermission(v['adminP']) then 
 						corp = k
-							--local bank = vSERVER.getArsenal(corp)
+						local bank = vSERVER.getArsenal(corp)
 						SendReactMessage('SET_WEAPON_LIST', cfg.weapons)
 						SendReactMessage('SET_CATEGORYS', v["classWeapons"])
 						SendReactMessage('SET_TITLE',k)
                         SendReactMessage('SET_LANGUAGE',lang)
+                        SendReactMessage('SET_BANK',bank)
 						toggleNuiFrame(true)
 					elseif vSERVER.HasPermission(v['useP']) then 
 						corp = k
