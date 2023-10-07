@@ -15,21 +15,6 @@ debugData([
     }, 
 ])
 
-const dataFake = [
-    { name: "Assault Rifle AKM111111",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:5,rateOfFire:3,accuracy:4,range:3}},
-    { name: "Assault Rifle AKM2",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:2,rateOfFire:3,accuracy:4,range:3}},
-    { name: "Assault Rifle AKM3",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:5,rateOfFire:1,accuracy:4,range:4}},
-    { name: "Assault Rifle AKM4",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:2,rateOfFire:3,accuracy:1,range:3}},
-    { name: "Assault Rifle AKM5",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:5,rateOfFire:3,accuracy:4,range:3}},
-    { name: "Assault Rifle AKM6",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:3,rateOfFire:3,accuracy:4,range:3}},
-    { name: "Assault Rifle AKM7",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:5,rateOfFire:3,accuracy:1,range:5}},
-    { name: "Assault Rifle AKM8",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:1,rateOfFire:5,accuracy:1,range:3}},
-    { name: "Assault Rifle AKM9",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:5,rateOfFire:3,accuracy:4,range:3}},
-    { name: "Assault Rifle AKM10",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:1,rateOfFire:3,accuracy:4,range:3}},
-    { name: "Assault Rifle AKM11",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:3,rateOfFire:5,accuracy:3,range:3}},
-    { name: "Assault Rifle AKM12",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:3,rateOfFire:3,accuracy:4,range:3}},
-]
-
 const Navegation = () => {
     const [block, setBlock] = useState<boolean>(false);
     const { categorys, categorySelected } = useSelector(useGlobal);
@@ -61,7 +46,7 @@ const Navegation = () => {
                             dispatch(setCategorySelected(categorys[index - 1]))
                         }
                         setBlock(true);
-                        setTimeout(() => setBlock(false), 250)
+                        setTimeout(() => setBlock(false), 500)
                     }
                     if (e.code === 'KeyE') {
                         const index = categorys.indexOf(categorySelected);
@@ -71,7 +56,7 @@ const Navegation = () => {
                             dispatch(setCategorySelected(categorys[index + 1]))
                         }
                         setBlock(true);
-                        setTimeout(() => setBlock(false), 250)
+                        setTimeout(() => setBlock(false), 500)
                     }
                 }
             }
