@@ -42,6 +42,7 @@ CreateThread(function()
 						SendReactMessage('SET_WEAPON_LIST', cfg.weapons)
 						SendReactMessage('SET_CATEGORYS', v["classWeapons"])
 						SendReactMessage('SET_TITLE',k)
+                        SendReactMessage('SET_LANGUAGE',lang)
 						toggleNuiFrame(true)
 					elseif vSERVER.HasPermission(v['useP']) then 
 						corp = k
