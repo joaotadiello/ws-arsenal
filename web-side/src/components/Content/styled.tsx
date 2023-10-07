@@ -10,4 +10,6 @@ export const Container = styled.div`
     margin-top: 4.6875em;
     opacity: 0;
     transition: all 1s ease;
+    position: relative;
+    z-index: 10;
 `

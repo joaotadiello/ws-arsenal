@@ -31,18 +31,20 @@ export const ContainerNavegation = styled.nav`
     justify-content: space-between;
     position:relative;
     margin-top: 5.375em;
-
+    z-index: 10;
     .arrows {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
         gap: 0.5em;
+        margin-bottom: .5em;
 
         & > span {
             font-family: 'SF Pro Display';
             font-weight: 800;
             font-style: normal;
-            font-size: 1em;
+            font-size: 1.5em;
             color: #FFF;
         }
     }
