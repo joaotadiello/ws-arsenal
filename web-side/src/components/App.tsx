@@ -41,7 +41,10 @@ const App = () => {
                 opacity: visible ? 1 : 0,
             }}>
                 <Button>
-                    <PiggyBank size={26} absoluteStrokeWidth />
+                    <PiggyBank className="center" absoluteStrokeWidth style={{
+                        height: "1.2em",
+                        width: "1em"
+                    }}/>
                     <span>{formatToCurrency(bank)}</span>
                 </Button>
                 <Header />

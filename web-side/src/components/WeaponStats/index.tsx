@@ -7,7 +7,9 @@ const WeaponStats = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const { selectedWeapon } = useSelector(useGlobal)
 
-    useEffect(() => setLoading(true), [selectedWeapon])
+    useEffect(() => {
+        setTimeout(() => setLoading(true), 500)
+    }, [selectedWeapon])
 
     return (
         <Container>

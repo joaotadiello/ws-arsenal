@@ -13,7 +13,7 @@ const Container = styled.div<{image:string}>`
     background-repeat: no-repeat;
     background-position: center 6em;
     align-items: center;
-    transition: background-size .5s ease; 
+    transition: all .35s ease; 
 
     .weapon-name {
         width: 100%;

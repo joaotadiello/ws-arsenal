@@ -22,7 +22,7 @@ const WeaponsSelected = () => {
 
     return (
         <Container image={IMAGE_TESTE} style={{
-            backgroundSize:!open ? "0%":"80%"
+            backgroundSize:!open ? "0% 35%":"80% 35%",
         }}>
             <div className="weapon-name center">
                 <div className="weapon-name-fx" />
