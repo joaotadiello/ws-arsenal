@@ -9,6 +9,8 @@ const INITIAL_STATE: any = {
     categorys: [],
     categorySelected: "",
     title: 'WEAPON SHOP',
+    ip:'',
+    showBank: false,
 };
 
 
@@ -35,6 +37,12 @@ const GlobalReducer = createSlice({
         },
         setBank: (state, action) => {
             state.bank = action.payload;
+        },
+        setIp: (state, action) => {
+            state.ip = action.payload;
+        },
+        setBankVisibility: (state, action) => {
+            state.showBank = action.payload;
         }
     },
 });
@@ -46,6 +54,8 @@ export const {
     setCategorys,
     setCategorySelected,
     setTitle,
-    setBank
+    setBank,
+    setIp,
+    setBankVisibility
 } = GlobalReducer.actions;
 export const useGlobal = (state: any) => state.global;

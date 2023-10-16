@@ -28,8 +28,10 @@ const Navegation = () => {
     useNuiEvent('SET_CATEGORYS', (data: any) => dispatch(setCategorys(data)))
 
     useEffect(() => {
+        if (categorySelected === '') return;
         fetchNui('armory:selectedCategory', categorySelected)
         .then(result => {
+            dispatch(setWeaponsList(result))
             setBlock(false)
         })
     }, [categorySelected])

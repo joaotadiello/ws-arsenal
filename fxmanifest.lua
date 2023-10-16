@@ -8,7 +8,6 @@ client_scripts {
 	"@vrp/config/Native.lua",
 	"@vrp/config/Item.lua",
 	"@vrp/lib/Utils.lua",
-    "language.lua",
 	"config.lua",
 	"client-side/*"
 }
@@ -17,7 +16,8 @@ server_scripts {
 	"@vrp/config/Item.lua",
 	"@vrp/lib/Utils.lua",
 	"config.lua",
-	"server-side/*"
+	"server-side/core.lua",
+	"server-side/server.lua",
 }
 
 files {

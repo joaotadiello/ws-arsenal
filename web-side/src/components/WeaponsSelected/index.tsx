@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Container from "./styled";
-import { useGlobal } from "../../store/ReducerGlobal";
-import IMAGE_TESTE from "../../assets/weapon-test.png"
+import { setBank, useGlobal } from "../../store/ReducerGlobal";
 import { formatToCurrency } from "../../utils/misc";
 import { useEffect, useState } from "react";
 import { fetchNui } from "../../utils/fetchNui";
@@ -10,10 +9,14 @@ import { Language } from "../../utils/lang";
 
 const WeaponsSelected = () => {
     const [open, setOpen] = useState(false)
-    const { selectedWeapon } = useSelector(useGlobal)
+    const { selectedWeapon, ip } = useSelector(useGlobal)
+    const dispatch = useDispatch()
 
     function handleTakeWeapon() {
-        fetchNui('take:weapon',selectedWeapon)
+        fetchNui('take:weapon', selectedWeapon)
+            .then(result => {
+                dispatch(setBank(result))
+            })
     }
 
     useEffect(() => {
@@ -21,9 +24,11 @@ const WeaponsSelected = () => {
         setTimeout(() => setOpen(true), 500)
     }, [selectedWeapon])
 
+    console.log(ip + selectedWeapon.image + '.png')
+
     return (
-        <Container image={IMAGE_TESTE} style={{
-            backgroundSize:!open ? "0% 35%":"80% 35%",
+        <Container image={ip + selectedWeapon.image + '.png'} style={{
+            backgroundSize: !open ? "0% 35%" : "80% 35%",
         }}>
             <div className="weapon-name center">
                 <div className="weapon-name-fx" />

@@ -4,68 +4,92 @@
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
--- CONNECTION
------------------------------------------------------------------------------------------------------------------------------------------
 vSERVER = Tunnel.getInterface(GetCurrentResourceName())
-cfg = module(GetCurrentResourceName(), "config")
+local armoryIndex = nil
 
--- local teste = {
--- 	{ name: "Assault Rifle AKM1",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:5,rateOfFire:3,accuracy:4,range:3}},
--- 	{ name: "Assault Rifle AKM2",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:2,rateOfFire:3,accuracy:4,range:3}},
--- 	{ name: "Assault Rifle AKM3",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:5,rateOfFire:1,accuracy:4,range:4}},
--- 	{ name: "Assault Rifle AKM4",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:2,rateOfFire:3,accuracy:1,range:3}},
--- 	{ name: "Assault Rifle AKM5",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:5,rateOfFire:3,accuracy:4,range:3}},
--- 	{ name: "Assault Rifle AKM6",image:"",price:10000, stats:{ammo:100,type:'Assault',damage:3,rateOfFire:3,accuracy:4,range:3}},
--- 	{ name: "Assault Rifle AKM7",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:5,rateOfFire:3,accuracy:1,range:5}},
--- 	{ name: "Assault Rifle AKM8",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:1,rateOfFire:5,accuracy:1,range:3}},
--- 	{ name: "Assault Rifle AKM9",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:5,rateOfFire:3,accuracy:4,range:3}},
--- 	{ name: "Assault Rifle AKM10",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:1,rateOfFire:3,accuracy:4,range:3}},
--- 	{ name: "Assault Rifle AKM11",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:3,rateOfFire:5,accuracy:3,range:3}},
--- 	{ name: "Assault Rifle AKM12",image:"",price:10000, stats:{ammo:100,type:'Assault Rifle',damage:3,rateOfFire:3,accuracy:4,range:3}},
--- }
+--- index == armory[index]
+function WeaponsToClass(index)
+    local data = armory[index]
+    for k,v in pairs(data.weapons) do
+        weapons[v]['index'] = v
+        if not data.types[weapons[v].type] then
+            data.types[weapons[v].type] = {weapons[v]}
+        else
+            table.insert(data.types[weapons[v].type],weapons[v])
+        end
+    end
+end
 
-local corp = false
+
+-- Return {['Pistola'] = {['glock'] = {...},['Rifle'] = {['ak'] = {...}}
+function GetArmoryTypes(index)
+    local types = {}
+    for k,v in pairs(armory[index]['types']) do
+        table.insert(types,k)
+    end
+    return types
+end
+
+local Init = function()
+    for k,v in pairs(armory) do
+        WeaponsToClass(k)
+    end
+end
+
+
+CreateThread(Init)
+
+function GetDistance()
+    local playerCoords = GetEntityCoords(PlayerPedId())
+    for k,v in pairs(armory) do
+        local dist = #(armory[k]['cds'] - playerCoords)
+        if dist <= 5 then
+            armoryIndex = k
+        end
+    end
+end
+
+function GerateFistList(index)
+    local list = {}
+    for k,v in pairs(armory[index]['types']) do
+        list = v
+        break
+    end
+    return list
+end
+
 CreateThread(function()
-	while true do 
-		local ms = 1000
-		for k, v in pairs(cfg.orgs) do 
-			local pedCds = GetEntityCoords(PlayerPedId())
-			local x,y,z = table.unpack(v['coords'])
-			local distance = Vdist(pedCds, x, y, z )
-			if distance <= 10.0 then 
-				ms = 1
-				if distance <= 2.0 and IsControlJustPressed(0,38) then 
-					if vSERVER.HasPermission(v['adminP']) then 
-						corp = k
-						local bank = vSERVER.getArsenal(corp)
-						SendReactMessage('SET_WEAPON_LIST', cfg.weapons)
-						SendReactMessage('SET_CATEGORYS', v["classWeapons"])
-						SendReactMessage('SET_TITLE',k)
-                        SendReactMessage('SET_LANGUAGE',lang)
-                        SendReactMessage('SET_BANK',bank)
-						toggleNuiFrame(true)
-					elseif vSERVER.HasPermission(v['useP']) then 
-						corp = k
-						--local bank = vSERVER.getArsenal(corp)
-					end
-				end 
-			end 
-			
-
-		end 
-		Wait(ms)
+	while true do
+        local idle = 500
+        if not armoryIndex then
+            GetDistance()
+        else
+            idle = 1
+            local dist = #(armory[armoryIndex]['cds'] - GetEntityCoords(PlayerPedId()))
+            if dist <= 2 and IsControlJustPressed(0,38) then
+                toggleNuiFrame(true)
+                SendReactMessage('SET_TITLE',armory[armoryIndex]['name'])
+                SendReactMessage('SET_CATEGORYS', GetArmoryTypes(armoryIndex))
+                SendReactMessage('SET_WEAPON_LIST', GerateFistList(armoryIndex))
+                SendReactMessage('SET_IP',images_ip)
+                
+                if armory[armoryIndex]['armoryType'] == 'armory' then
+                    SendReactMessage('SET_BANK', vSERVER.getArsenalBank(armoryIndex))
+                    SendReactMessage('TOOGLE_BANK',armory[armoryIndex]['armoryType'] == 'armory')
+                end
+            elseif dist >= 5 then
+                armoryIndex = nil
+            end
+        end
+        Wait(idle)
 	end 
 end)
 
 RegisterNUICallback('take:weapon',function(data,cb)
-	print(json.encode(data))
-	cb(true)
-end)
-
-RegisterNUICallback('armory:selectedCategory',function(category,cb)
-    print(category)
-    cb(true)
+    local index = data.index
+    local bank = vSERVER.tryWeapon(armoryIndex,index)
+	cb(vSERVER.tryWeapon(armoryIndex,index) or vSERVER.getArsenalBank(armoryIndex))
+    toggleNuiFrame(false)
 end)
 
 
@@ -89,4 +113,9 @@ end
 RegisterNUICallback("hideFrame",function(data,cb)
     toggleNuiFrame(false)
     cb({})
+end)
+
+RegisterNUICallback('armory:selectedCategory',function(category,cb)
+    if not category then return end
+    cb(armory[armoryIndex]['types'][category])
 end)
