@@ -32,7 +32,6 @@ const Content = () => {
     const {weapons} = useSelector(useGlobal) 
 
     useNuiEvent('SET_WEAPON_LIST', (data: any) => {
-        console.log('SET_WEAPON_LIST', JSON.stringify(data))
         dispatch(setWeaponsList(data))
     })
 

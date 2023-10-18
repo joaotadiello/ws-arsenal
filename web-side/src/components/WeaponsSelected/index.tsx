@@ -24,8 +24,6 @@ const WeaponsSelected = () => {
         setTimeout(() => setOpen(true), 500)
     }, [selectedWeapon])
 
-    console.log(ip + selectedWeapon.image + '.png')
-
     return (
         <Container image={ip + selectedWeapon.image + '.png'} style={{
             backgroundSize: !open ? "0% 35%" : "80% 35%",

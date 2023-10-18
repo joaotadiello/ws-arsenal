@@ -14,7 +14,7 @@ function Query(Name,Table)
 end 
 
 function GetUserId(Source)
-    return vRP.Passport(source)
+    return vRP.Passport(Source)
 end
 
 function HasPermission(Passport,Perm)
@@ -22,25 +22,24 @@ function HasPermission(Passport,Perm)
 end
 
 function GiveWeapon(Source,Passport,Weapon)
-	print(json.encode(Weapon))
     vRP.GenerateItem(Passport,Weapon,1,true)
 end
 
 function Notify(source,type,text)
     local types = {
-        ['sucesso'] = 'sucesso', --verde
+        ['sucesso'] = 'verde', --verde
         ['negado'] = 'negado', --vermelho
         ['aviso'] = 'aviso' --amarelo
     }
-    TriggerClientEvent('Notify',source,types[type],text)
+    TriggerClientEvent('Notify',source,types[type],text,5000)
 end
 
 function ItemName(item)
-    return ItemName(item)
+    return itemName(item)
 end
 
 function ItemWeight(item)
-    return ItemWeight(item)
+    return itemWeight(item)
 end
 
 function InventoryWeight(Passport)
@@ -56,5 +55,5 @@ function Payment(Passport,Amount)
 end
 
 function Webhook(link,message)
-    SendWebhookMessage(link,message)
+    PerformHttpRequest(link, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
 end

@@ -66,6 +66,8 @@ CreateThread(function()
         else
             idle = 1
             local dist = #(armory[armoryIndex]['cds'] - GetEntityCoords(PlayerPedId()))
+            DrawMarker(27,armory[armoryIndex]['cds'].x,armory[armoryIndex]['cds'].y,armory[armoryIndex]['cds'].z-1,0,0,0,0.0,0,0,0.6,0.6,0.5,234, 68, 167,50,0,0,0,1)
+            DrawText3Ds(armory[armoryIndex]['cds'].x,armory[armoryIndex]['cds'].y,armory[armoryIndex]['cds'].z,"PRESSIONA ~q~[E]~w~ PARA ABRIR")
             if dist <= 2 and IsControlJustPressed(0,38) and vSERVER.HasPermission(armoryIndex) then
                 SendReactMessage('SET_TITLE',armory[armoryIndex]['name'])
                 SendReactMessage('SET_CATEGORYS', GetArmoryTypes(armoryIndex))
@@ -87,9 +89,9 @@ end)
 
 RegisterNUICallback('take:weapon',function(data,cb)
     local index = data.index
-    local bank = vSERVER.tryWeapon(armoryIndex,index)
     toggleNuiFrame(false)
-	cb(vSERVER.tryWeapon(armoryIndex,index) or vSERVER.getArsenalBank(armoryIndex))
+    vSERVER.tryWeapon(armoryIndex,index)
+	cb(armory[armoryIndex]['armoryType'] == 'armory' and vSERVER.getArsenalBank(armoryIndex))
 end)
 
 
@@ -119,3 +121,17 @@ RegisterNUICallback('armory:selectedCategory',function(category,cb)
     if not category then return end
     cb(armory[armoryIndex]['types'][category])
 end)
+
+function DrawText3Ds(x,y,z,text)
+    local onScreen,_x,_y=World3dToScreen2d(x,y,z)
+    SetTextScale(0.34, 0.34)
+    SetTextFont(4)
+    SetTextProportional(1)
+    SetTextColour(255, 255, 255, 215)
+    SetTextEntry("STRING")
+    SetTextCentre(1)
+    AddTextComponentString(text)
+    DrawText(_x,_y)
+    local factor = (string.len(text)) / 370 +0.02
+    DrawRect(_x,_y+0.0125, 0.001+ factor, 0.028, 0, 0, 0, 78)
+end

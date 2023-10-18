@@ -21,14 +21,14 @@ function Init()
 	end
 	-- Insert new arsenal to db
 	for k,v in pairs(armory) do
-		if not cache[k] then
+		if not cache[k] and v['armoryType'] == 'armory' then
 			Query("armory/add_data",{ name = k, bank = v.initBank })
 			cache[k] = v.initBank
 		end
 	end
 	-- Remove not in config
 	for k,v in pairs(cache) do
-		if not armory[k] then
+		if not armory[k] and armory[k]['armoryType'] == 'armory' then
 			Query("armory/delete_data",{ name = k })
 			cache[k] = nil
 		end
@@ -84,15 +84,14 @@ function API.tryWeapon(armoryIndex, itemIndex)
 	if armory[armoryIndex] and weapons[itemIndex] then
 		local weapon = weapons[itemIndex]
         local config = armory[armoryIndex]
-        if armory[armoryIndex]['armoryType'] ~='armory' and not actived[Passport] then
-            if  (vRP.InventoryWeight(Passport) + ItemWeight(weapon.item)) <= InventoryMaxWeight(Passport) then
+        if config['armoryType'] ~='armory' and not actived[Passport] then
+            if (InventoryWeight(Passport) + ItemWeight(weapon.item)) <= InventoryMaxWeight(Passport) then
                 if Payment(Passport,weapon.price) then
                     actived[Passport] = true
 	    		    GiveWeapon(source,Passport,weapon.item)
+                    Notify(source,'sucesso',"Você retirou 1x"..ItemName(weapon.item))
+                    Webhook(config['webhook'],'```prolog\n[COMPROU]\n [USERID]:'..Passport..'\n [ITEM]:'..itemIndex..'\n [QUANTIDADE]:1x\n'..'```')
                     actived[Passport] = nil
-                    Notify(source,'sucess',"Você retirou 1x"..ItemName(weapon.item))
-                    Webhook(armory[armoryIndex]['webhook'],'```prolog\n[COMPROU]\n [USERID]:'..Passport..'\n [ITEM]:'..itemIndex..'\n [QUANTIDADE]:1x\n'..'```')
-			        return cache[armoryIndex]
                 else
                     Notify(source,'negado','Você não tem dinheiro para comprar este equipamento')
                 end
@@ -105,11 +104,11 @@ function API.tryWeapon(armoryIndex, itemIndex)
                 GiveWeapon(source,Passport,weapon.item)
                 RemoveBank(armoryIndex, weapon.price)
                 actived[Passport] = nil
-                Notify(source,'sucess',"Você retirou 1x"..ItemName(weapon.item))
-                Webhook(armory[armoryIndex]['webhook'],'```prolog\n[RETIROU]\n [USERID]:'..Passport..'\n [ITEM]:'..itemIndex..'\n [QUANTIDADE]:1x\n'..'```')
+                Notify(source,'sucesso',"Você retirou 1x"..ItemName(weapon.item))
+                Webhook(config['webhook'],'```prolog\n[RETIROU]\n [USERID]:'..Passport..'\n [ITEM]:'..itemIndex..'\n [QUANTIDADE]:1x\n'..'```')
                 return cache[armoryIndex]
             else
-                Notify(source,'negado','Você não tem dinheiro para comprar este equipamento')
+                Notify(source,'negado','Você não tem dinheiro para comprar este equipamento',time)
             end
         end
 	end	
