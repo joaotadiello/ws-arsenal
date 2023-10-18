@@ -66,8 +66,7 @@ CreateThread(function()
         else
             idle = 1
             local dist = #(armory[armoryIndex]['cds'] - GetEntityCoords(PlayerPedId()))
-            if dist <= 2 and IsControlJustPressed(0,38) then
-                toggleNuiFrame(true)
+            if dist <= 2 and IsControlJustPressed(0,38) and vSERVER.HasPermission(armoryIndex) then
                 SendReactMessage('SET_TITLE',armory[armoryIndex]['name'])
                 SendReactMessage('SET_CATEGORYS', GetArmoryTypes(armoryIndex))
                 SendReactMessage('SET_WEAPON_LIST', GerateFistList(armoryIndex))
@@ -77,6 +76,7 @@ CreateThread(function()
                     SendReactMessage('SET_BANK', vSERVER.getArsenalBank(armoryIndex))
                     SendReactMessage('TOOGLE_BANK',armory[armoryIndex]['armoryType'] == 'armory')
                 end
+                toggleNuiFrame(true)
             elseif dist >= 5 then
                 armoryIndex = nil
             end
