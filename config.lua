@@ -37,7 +37,8 @@ armory = {
         ['permission'] = "",
 		['cds'] = vec3(-1321.13,-1514.1,4.43),
         ['initBank'] = 10000,
-        ['armoryType'] = 'ammonation' --ammonation
+        ['armoryType'] = 'ammonation', --ammonation
+        ['webhook'] = ''
     },
     ['Mecanico'] = {
         ["name"] = "Policia",
@@ -46,7 +47,9 @@ armory = {
         ['permission'] = "",
 		['cds'] = vec3(-1421.13,-1514.1,4.43),
         ['initBank'] = 10000,
-        ['armoryType'] = 'ammonation'
+        ['armoryType'] = 'ammonation',
+        ['webhook'] = ''
+
     },
 }
 

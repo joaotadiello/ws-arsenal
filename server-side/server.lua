@@ -91,6 +91,7 @@ function API.tryWeapon(armoryIndex, itemIndex)
 	    		    GiveWeapon(source,Passport,weapon.item)
                     actived[Passport] = nil
                     Notify(source,'sucess',"Você retirou 1x"..ItemName(weapon.item))
+                    Webhook(armory[armoryIndex]['webhook'],'```prolog\n[COMPROU]\n [USERID]:'..Passport..'\n [ITEM]:'..itemIndex..'\n [QUANTIDADE]:1x\n'..'```')
 			        return cache[armoryIndex]
                 else
                     Notify(source,'negado','Você não tem dinheiro para comprar este equipamento')
@@ -105,6 +106,7 @@ function API.tryWeapon(armoryIndex, itemIndex)
                 RemoveBank(armoryIndex, weapon.price)
                 actived[Passport] = nil
                 Notify(source,'sucess',"Você retirou 1x"..ItemName(weapon.item))
+                Webhook(armory[armoryIndex]['webhook'],'```prolog\n[RETIROU]\n [USERID]:'..Passport..'\n [ITEM]:'..itemIndex..'\n [QUANTIDADE]:1x\n'..'```')
                 return cache[armoryIndex]
             else
                 Notify(source,'negado','Você não tem dinheiro para comprar este equipamento')

@@ -54,3 +54,7 @@ end
 function Payment(Passport,Amount)
     return vRP.PaymentFullNormal(Passport,Amount)
 end
+
+function Webhook(link,message)
+    SendWebhookMessage(link,message)
+end
