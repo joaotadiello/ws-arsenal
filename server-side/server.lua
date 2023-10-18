@@ -64,10 +64,12 @@ CreateThread(Init)
 ------------------------------------------------------------
 --- [ Tunnel ]
 ------------------------------------------------------------
-function API.HasPermission(perm)
+function API.HasPermission(index)
 	local source = source
 	local Passport = GetUserId(source)
 	if not Passport then return end
+    local perm = armory[index]["permission"]
+    if perm == "" then return true end
 	return HasPermission(Passport, perm)
 end
 

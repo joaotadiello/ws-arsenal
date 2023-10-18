@@ -88,8 +88,8 @@ end)
 RegisterNUICallback('take:weapon',function(data,cb)
     local index = data.index
     local bank = vSERVER.tryWeapon(armoryIndex,index)
-	cb(vSERVER.tryWeapon(armoryIndex,index) or vSERVER.getArsenalBank(armoryIndex))
     toggleNuiFrame(false)
+	cb(vSERVER.tryWeapon(armoryIndex,index) or vSERVER.getArsenalBank(armoryIndex))
 end)
 
 
